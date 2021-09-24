@@ -28,4 +28,8 @@ export const phrases = {
     "i bet you've eaten since you last fed me. i hope you feel bad. i'm sorry if you do.",
     "friend i don't want to get grumpy but i'm gonna need a little food to prevent that.",
   ],
+
+  none: [
+      "i'm good, thanks babe!"
+  ]
 };

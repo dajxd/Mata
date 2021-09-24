@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { phrases } from "./Phrases";
 export default function ThoughtCloud(props) {
   const [prevWorst, setPrevWorst] = useState(false);
@@ -17,6 +17,18 @@ export default function ThoughtCloud(props) {
   } else {
     chosenPhrase = "";
   }
+
+  useEffect(() => {
+    // console.log("hide: ", props.isHiding, "sad", props.isSad);
+    if (props.isHiding) {
+      document.getElementById("cloudBox").style.opacity = 0;
+    } else if (!props.isHiding) {
+      document.getElementById("cloudBox").style.opacity = 100;
+    }
+  });
+
+  // useEffect to make comments pop up sometimes when worstThing === "none"
+
   return (
     <div id="cloudBox">
       <video
@@ -28,7 +40,13 @@ export default function ThoughtCloud(props) {
         playsInline
         preload="true"
       ></video>
-      <div id="thoughtCloudItem">{chosenPhrase}</div>
+      <div id="thoughtCloudTextContainer">
+        {/* <div id="shapeOne"></div> */}
+        <div id="thoughtCloudItem">
+          <span>{chosenPhrase}</span>
+        </div>
+        {/* <div id="shapeTwo"></div> */}
+      </div>
     </div>
   );
 }

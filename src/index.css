@@ -6,6 +6,85 @@ body {
   pointer-events: none;
 }
 
+:root {
+  --healthColor:rgb(31, 177, 11);
+  --loveColor:rgb(245, 98, 130);
+  --playColor:rgb(85, 66, 255);
+}
+.healthColor {
+  color:var(--healthColor);
+}
+.loveColor {
+  color: var(--loveColor);
+}
+.playColor {
+  color:var(--playColor);
+}
+
+/* Outer text */
+
+#timeAway {
+  transition: all 2s ease-out;
+  width: 100%;
+  text-align: center;
+  color: white;
+  opacity: 100%;
+  position: absolute;
+  top: 5%;
+}
+#aliveTime {
+  font-size: 1em;
+  color: white;
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Vitals Monitoring */
+
+#vitalBars {
+  padding: 20px;
+  z-index: 10;
+  background-color: rgb(8, 35, 49);
+  border: 4px solid rgb(5, 59, 104);
+  border-radius: 25px;
+  z-index: 1;
+  pointer-events: none;
+  position: absolute;
+  width: 180px;
+  left: 2%;
+  top: 25%;
+  bottom: 25%;
+  height: 20%;
+  display: flex;
+  flex-flow: row;
+}
+#vitalBars .barOuter {
+  width: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 200px;
+  transform: rotateZ(180deg);
+}
+.barOuter div {
+  border-radius: 15px;
+  max-height: 100%;
+  width: 100%;
+  transition: .8s all ease-in;
+}
+#playBar {
+  background-color: var(--playColor);
+}
+#loveBar {
+  background-color: var(--loveColor);
+}
+#healthBar {
+  background-color: var(--healthColor);
+}
+
+/* Item Usage Effect  */
+
 #itemEffect {
   position: absolute;
   display: flex;
@@ -14,13 +93,7 @@ body {
   height: 100%;
   z-index: -1;
   transition: all 0.2s;
-
   opacity: 0;
-}
-
-.fader {
-  animation-name: fadeOut;
-  animation-duration: 1s;
 }
 
 #itemEffect svg {
@@ -29,6 +102,13 @@ body {
   margin-bottom: 20%;
   z-index: 1;
 }
+
+.fader {
+  animation-name: fadeInAndOut;
+  animation-duration: 1s;
+}
+
+/* Main videos styling */
 
 #imageDiv {
   display: grid;
@@ -46,6 +126,7 @@ body {
 }
 
 #imageDiv video {
+  /* scale: 10; I want to play with this for some sort of emoting!*/
   z-index: 4;
   grid-column: 1;
   grid-row: 1;
@@ -63,6 +144,7 @@ body {
   transition: all 0.5s;
 }
 
+/* Thought cloud  */
 #cloudBox {
   z-index: 20;
   position: absolute;
@@ -76,22 +158,22 @@ body {
 
 #thoughtCloudVideo {
   width: 300px;
-  grid-column: 1;
-  grid-row: 1;
+}
+#thoughtCloudTextContainer {
+  top: 15%;
+  position: absolute;
+  width: 100%;
 }
 
 #thoughtCloudItem {
-  top: 12%;
-  position: absolute;
-  width: 200px;
-  height: 150px;
-  grid-column: 1;
-  grid-row: 1;
-  justify-items: center;
-  display: grid;
-  margin-left: 65px;
-  margin-top: 30px;
-  overflow: hidden;
+  height: 100%;
+}
+
+#thoughtCloudItem span {
+  width: 250px;
+  margin-top: 15px;
+  display: block;
+  text-align: center;
 }
 
 #thoughtCloudItem svg {
@@ -103,20 +185,65 @@ body {
   animation: wiggle 10s linear infinite;
 }
 
+#thoughtCloudItem::before {  /* Playing with shape-outside to try and fill the cloud with text  */
+  content: "";              /*  Probably going away, likely won't even keep the text. But,     */
+  height: 100px;           /*   thanks Mozilla for the helper tool in Firefox!                */
+  width: 50%;
+  float: left;
+  shape-outside: circle(73.76% at -18px -38px);
+}
+
+#thoughtCloudItem > span::before {
+  content: "";
+  height: 100px;
+  width: 50%;
+  float: right;
+  shape-outside: circle(75.98% at 192px -34px);
+}
+
+/* Action button styling */
+
 #buttons {
   position: absolute;
   z-index: 10;
   width: 100%;
   display: flex;
   justify-content: center;
-  bottom: 3%;
+  bottom: 5%;
   pointer-events: none;
+}
+#buttons button {
+  height: 200px;
 }
 #buttons svg {
   width: 80%;
   height: auto;
   margin-bottom: 10px;
 }
+
+#button_random {
+  transition: 0.5s all ease-out;
+}
+
+button:disabled {
+  opacity: 0.7;
+  scale: 0.9;
+}
+.actionButton {
+  width: 10%;
+  pointer-events: all;
+  min-width: 94px;
+  padding: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: rgb(191, 140, 241);
+  background-color: rgb(8, 35, 49);
+  border-radius: 25px;
+  border-top-color: rgb(191, 140, 241);
+  font-family: inherit;
+  font-size: 1.1em;
+}
+/* Inventory styling */
 
 #outerItemsBox {
   z-index: 1;
@@ -140,7 +267,6 @@ body {
   border: 4px solid rgb(5, 59, 104);
   border-radius: 25px;
 }
-
 #popUp {
   text-align: center;
   z-index: 50;
@@ -152,7 +278,7 @@ body {
   width: 150px;
   border: 4px solid rgb(140, 120, 254);
   display: none;
-  border-radius: 25px 25px 25px 25px/25px 25px 25px 25px;
+  border-radius: 25px;
 }
 
 #popUp .itemValue .itemTitle {
@@ -184,30 +310,7 @@ body {
   animation: wiggle 1s ease-in infinite;
 }
 
-.healthColor {
-  color: rgb(31, 177, 11);
-}
-.loveColor {
-  color: rgb(245, 98, 130);
-}
-.playColor {
-  color: rgb(85, 66, 255);
-}
-
-.actionButton {
-  width: 10%;
-  pointer-events: all;
-  min-width: 94px;
-  padding: 20px;
-  margin-left: 10px;
-  margin-right: 10px;
-  color: rgb(191, 140, 241);
-  background-color: rgb(8, 35, 49);
-  border-radius: 25px;
-  border-top-color: rgb(191, 140, 241);
-  font-family: inherit;
-  font-size: 1.1em;
-}
+/* For when Mata wants to hide behind stuff! */
 
 .hideInItems {
   margin-left: 40%;
@@ -233,7 +336,8 @@ body {
   scale: 0.5;
 }
 
-@keyframes fadeOut {
+
+@keyframes fadeInAndOut {
   0% {
     opacity: 0;
     scale: 0.2;
@@ -254,11 +358,9 @@ body {
   0% {
     transform: translateY(1px);
   }
-
   50% {
     transform: translateY(-1px);
   }
-
   100% {
     transform: translateY(1px);
   }
@@ -269,18 +371,18 @@ body {
     scale: 0;
     opacity: 0;
   }
-
   50% {
     scale: 0.4;
   }
-
   100% {
     scale: 1;
     opacity: 100;
   }
 }
+
 #dev {
   position: fixed;
   top: 20px;
   left: 40%;
+  width: 20%;
 }

@@ -3,9 +3,7 @@ import React from "react";
 class InventoryIcon extends React.Component {
   componentDidMount() {
     const thisIcon = document.getElementById(this.props.item.name);
-    // thisIcon.style.opacity = 0;
     thisIcon.classList.add("itemIconAnimation");
-    // setTimeout(() => {thisIcon.style.opacity = 100;}, 200)
     setTimeout(() => {
       thisIcon.classList.remove("itemIconAnimation");
     }, 300);
@@ -21,7 +19,7 @@ class InventoryIcon extends React.Component {
           onClick={() => this.props.setActiveFunction(this.props.item)}
           id={this.props.item.name}
         >
-          {this.props.item.icon}
+          {this.props.item.icon} {this.props.hiding}
         </span>
       </div>
     );

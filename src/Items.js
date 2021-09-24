@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import InventoryIcon from "./InventoryIcon";
 import Popup from "./Popup";
 import allItems from "./AllItems";
@@ -30,18 +30,6 @@ export default function Items(props) {
             })
             .map((e) => (
               <InventoryIcon item={e} handleMouseOver={handleMouseOver} handleMouseOut={handleMouseOut} setActiveFunction={props.setActiveFunction} />
-              // <div className="itemIcon" key={"div_" + e.name}>
-              //   <span
-              //     alt={e.name}
-              //     key={e.name}
-              //     onMouseOver={handleMouseOver}
-              //     onMouseOut={handleMouseOut}
-              //     onClick={() => props.setActiveFunction(e)}
-              //     id={e.name}
-              //   >
-              //     {e.icon}
-              //   </span>
-              // </div>
             ))}
         </div>
       </div>
