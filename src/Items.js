@@ -23,12 +23,12 @@ export default function Items(props) {
         <div id="itemsBox">
           <br />
           {inventory
-            .sort(function (a, b) {
-              if (a.type[0] > b.type[0]) {
-                return -1;
-              }
-              return 1;
-            })
+            // .sort(function (a, b) {
+            //   if (a.type[0] > b.type[0]) {
+            //     return -1;
+            //   }
+            //   return 1;
+            // })
             .map((e) => (
               <InventoryIcon item={e} handleMouseOver={handleMouseOver} handleMouseOut={handleMouseOut} setActiveFunction={props.setActiveFunction} />
             ))}

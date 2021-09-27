@@ -1,8 +1,10 @@
 import React from "react";
 
 class InventoryIcon extends React.Component {
+  
   componentDidMount() {
     const thisIcon = document.getElementById(this.props.item.name);
+    console.log(this.props.item.name)
     thisIcon.classList.add("itemIconAnimation");
     setTimeout(() => {
       thisIcon.classList.remove("itemIconAnimation");

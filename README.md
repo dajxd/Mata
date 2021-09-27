@@ -2,7 +2,7 @@
 
 - To do:
 
-  - Move stateful logic to App.js! Really, make sure props aren't getting changed in-module.
+  - PropType it up.
 
   - Give an indication that they're hiding and that you may have to resize the window.
 
@@ -12,16 +12,16 @@
 
   - When you use an item during a video transition, we seem to get stuck with no visible videos.
     - Animation-in-progress variable?
-  - Maybe give a thought to balancing
+  - Maybe give a thought to balancing? Game play? Not really my strong suit.
 
-  - At least one more video, for megasad and maybe for "hey thanks, but that wasn't what I needed"
+  - At least one more video, for mega-sad and maybe for "hey thanks, but that wasn't what I needed"
 
   - Vital bars
 
-    - Labels, maybe cute icons.
-
-    - They should react when you add more to a full bar.
-
     - They should be less ugly.
+  
+  - Something should actually happen when the vitals all go to zero! I don't want Mata to "die", maybe they get reincarnated? With a randomized message of what they ended up as? "Mata was reincarnated as a pop tart! Click here to restart." 
 
-    - New item animation is applying to the last item in the box instead of the newest one!
+  - Check out the Time Alive, something went weird just now. Said 3 days instead of like, 6 hours.
+
+  - If you're gonna keep the text, at least make it sit well.
