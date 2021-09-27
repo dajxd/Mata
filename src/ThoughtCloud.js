@@ -19,7 +19,6 @@ export default function ThoughtCloud(props) {
   }
 
   useEffect(() => {
-    // console.log("hide: ", props.isHiding, "sad", props.isSad);
     if (props.isHiding) {
       document.getElementById("cloudBox").style.opacity = 0;
     } else if (!props.isHiding) {
@@ -27,7 +26,6 @@ export default function ThoughtCloud(props) {
     }
   });
 
-  // useEffect to make comments pop up sometimes when worstThing === "none"
 
   return (
     <div id="cloudBox">
@@ -41,11 +39,9 @@ export default function ThoughtCloud(props) {
         preload="true"
       ></video>
       <div id="thoughtCloudTextContainer">
-        {/* <div id="shapeOne"></div> */}
         <div id="thoughtCloudItem">
           <span>{chosenPhrase}</span>
         </div>
-        {/* <div id="shapeTwo"></div> */}
       </div>
     </div>
   );

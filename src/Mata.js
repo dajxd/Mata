@@ -16,13 +16,14 @@ export default function Mata(props) {
   const decay = 1;
   const decayRate = 5000;
 
+  // Decide which funtion to run depending on the clicked item. The function could be in the item object instead?
   const funcReturner = (item) => {
     switch (item.type) {
       case "health":
         feedMata(item);
         break;
       case "love":
-        visitMata(item);
+        loveMata(item);
         break;
       case "play":
         playWithMata(item);
@@ -33,6 +34,7 @@ export default function Mata(props) {
     }
   };
 
+  // Decide which idle video to use. I am sometimes ending up with both videos at 0 opacity. TODO: Make a ghost not transparent.
   const idleChange = (turnSad) => {
     const video = document.getElementById("idleVideo");
     video.style.opacity = 0;
@@ -47,6 +49,7 @@ export default function Mata(props) {
     return currentIdle;
   };
 
+  // Make Mata happy! Ghosts love video src changes and opacity flips. This is likely a culprit in the bug above!
   const happyMoment = () => {
     const video = document.getElementById("idleVideo");
     const happyVideo = document.getElementById("happyVid");
@@ -60,14 +63,14 @@ export default function Mata(props) {
       video.style.opacity = 100;
       setTimeout(() => {
         happyVideo.src = "";
-      }, 1000);
+      }, 1000); // Waiting a full second just to be sure the transition has finished.
     }
     happyVideo.addEventListener("ended", outClip);
   };
-  // idle handler, sad setter, cloud opacity, worstThing
+  // This function is ridiculous. Calculates the worst of the three vitals to send to the ThoughtCloud module, and calls the idleChange function when sadness has changed.
+  //                                               [   TODO: do this in App instead!   ]                   [   TODO: do this in a useEffect with a sad dependency!  ]
   useEffect(() => {
-    // get smallest vital value
-
+    // Get lowest vital value
     let testArray = [];
     Object.entries(vitals).forEach((e) => {
       testArray.push(e[1]);
@@ -85,34 +88,40 @@ export default function Mata(props) {
           setWorstThing("play");
           break;
         default:
-          setWorstThing("IT BROKE OH NO");
+          setWorstThing("IT BROKE OH NO"); // If I'm gonna be silly here, I should at least handle it in the thoughtCloud.
       }
     } else {
       setWorstThing("none");
     }
     if (vitals.health + vitals.love + vitals.play > 125) {
+      // If Mata's vitals are good,
       if (sad) {
-        setSad(false);
-        idleChange(false);
-        document.getElementById("cloudBox").style.opacity = 0;
+        // if they're sad,
+        setSad(false); // set them not sad!
+        idleChange(false); // and change the idle to the not sad version.
+        // document.getElementById("cloudBox").style.opacity = 0;
       }
     } else {
+      // If Mata's vitals are not good,
       if (!sad) {
-        // console.log("changing to sad idle");
-        idleChange(true);
-        setSad(true);
+        // and they're not sad,
+        setSad(true); // set them sad
+        idleChange(true); // and change the idle to the sad version
         setTimeout(() => {
-          document.getElementById("cloudBox").style.opacity = 100;
+          // document.getElementById("cloudBox").style.opacity = 100;
         }, 1000);
       }
     }
   }, [vitals]);
+
+  // Function for the random item button.
   const giveRandomItem = () => {
-    //  only select from items you don't already have
+    //  Only select from items you don't already have
     let potentialItems = [];
     let invItemNames = [];
 
     Object.entries(props.inventory).forEach((e) => {
+      // I really need a dedicated function to turn item objects into an array of names. Oh wait, there's one in App.js.
       invItemNames.push(e[1].name);
     });
     Object.entries(allItems).forEach((e) => {
@@ -120,11 +129,16 @@ export default function Mata(props) {
         potentialItems.push(allItems[e[0]]);
       }
     });
+
+    // Identify a butt and disable it. You're next.
     const butt = document.getElementById("button_random");
     butt.setAttribute("disabled", true);
+
+    // Pick a random item from the list of unobtained items.
     let randomItem =
       potentialItems[Math.floor(Math.random() * potentialItems.length)];
     if (potentialItems.length > 0) {
+      // Should just check "if (randomItem)" I think
       props.addToInventory(randomItem);
     } else {
       butt.innerText = "Too many items!";
@@ -135,8 +149,10 @@ export default function Mata(props) {
       butt.removeAttribute("disabled");
       butt.innerText = "Random Item";
       butt.style.backgroundColor = "";
-    }, 5000);
+    }, 5000); // Five seconds between free items.
   };
+
+  // Function for food item usage. Play animation, update vitals state, remove item from inventory.
   const feedMata = (item) => {
     happyMoment();
     if (document.getElementById("itemEffect")) {
@@ -151,7 +167,8 @@ export default function Mata(props) {
       props.removeFromInventory(item)
     );
   };
-  const visitMata = (item) => {
+  // Function for love item usage. Play animation, update vitals state, remove item from inventory.
+  const loveMata = (item) => {
     happyMoment();
     if (document.getElementById("itemEffect")) {
       let itemDiv = document.getElementById("itemEffect");
@@ -165,6 +182,7 @@ export default function Mata(props) {
       props.removeFromInventory(item)
     );
   };
+  // Function for play item usage. Play animation, update vitals state, remove item from inventory.
   const playWithMata = (item) => {
     happyMoment();
     if (isNaN(item)) {
@@ -187,28 +205,27 @@ export default function Mata(props) {
       );
     }
   };
-  const getTimeDiff = (wantsAlive) => {
-    // console.log("alive time: ", wantsAlive);
+
+  // Calculate how long Mata has been kept happy and alive. (or dead!)
+  const getTimeDiff = (returnAliveTime) => {
     let dateDiff;
-    if (wantsAlive) {
+    if (returnAliveTime) {
       dateDiff = Date.now() - props.startDate;
     } else {
       dateDiff = Date.now() - props.lastVisited;
     }
-    // console.log(dateDiff);
     let dayCount = Math.floor(dateDiff / 86400000);
-    // console.log("days", dayCount);
     dateDiff -= dayCount * 86400000;
     let hourCount = Math.floor(dateDiff / 3600000);
-    // console.log("hours", hourCount);
     dateDiff -= hourCount * 3600000;
     let minuteCount = Math.floor(dateDiff / 60000);
-    // console.log("minutes", minuteCount);
     return [
       `${dayCount} days, ${hourCount} hours, and ${minuteCount} minutes`,
       minuteCount,
     ];
   };
+
+  // Main function for vital decay over time.
   const liveTimePassing = () => {
     // Vital decay
     let newHVal, newPVal, newLVal;
@@ -224,7 +241,7 @@ export default function Mata(props) {
         newPVal = prev.play;
       }
       if (prev.love > 0) {
-        // should decay based on last visit
+        // Should decay based on last visit?
         newLVal = prev.love - decay;
       } else {
         newLVal = prev.love;
@@ -232,7 +249,6 @@ export default function Mata(props) {
 
       return { health: newHVal, love: newLVal, play: newPVal };
     });
-    // console.log(newPVal, newLVal, newHVal);
 
     // timeAlive calculation
     setTimeAlive(getTimeDiff(true));
@@ -244,16 +260,17 @@ export default function Mata(props) {
     props.updateLastVisited();
   };
 
+  // Update the vital cookies every time the vitals change.
   useEffect(() => {
     props.updateVitalCookies(vitals);
   }, [vitals]);
 
+  // Update the sad cookies every time the sadness changes. TODO: use this useEffect to help out the Ridiculous Function.
   useEffect(() => {
-    // console.log("uE", sad);
     props.updateSadCookies(sad ? 1 : 0);
   }, [sad]);
 
-  // itemEffect handler
+  // Make the big woosh-y background item when an clickedItem is changed.
   useEffect(() => {
     if (clickedItem) {
       let itemDiv = document.getElementById("itemEffect");
@@ -264,7 +281,7 @@ export default function Mata(props) {
     }, 1000);
   }, [clickedItem]);
 
-  // Set liveTimePassing, add hide chance
+  // Set liveTimePassing, make vitals reflect how long it's been since Mata was loaded, and add hide chance TODO: Mata should not only hide on page refresh. Should do it randomly (with a transition to the target spot, if a quick one.)
   useEffect(() => {
     // Adjust vitals based on time away
     setTimeAlive(getTimeDiff(true));
@@ -272,16 +289,20 @@ export default function Mata(props) {
     let timeData = getTimeDiff(false);
     let text = timeData[0];
     if (timeData[1] > 1) {
-      setAwayMessage(`You've been away for ${text}`);
+      setAwayMessage(`You've been away for ${text}`); // Gotta guilt 'em!
     }
 
     setTimeout(() => {
-      document.getElementById("timeAway").style.opacity = 0;
-    }, 4000);
-    let hoursAway = Math.floor((Date.now() - props.lastVisited) / 3600000);
+      document.getElementById("timeAway").style.opacity = 0; // And then make the guilt invisible.
+    }, 4000); // ...after four seconds.
+    let hoursAway = Math.floor((Date.now() - props.lastVisited) / 3600000); // Calculate how many hours have passed to wear away Mata's vital accordingly.
     setVitals((prev) => {
+      // Still not sure exactly how much to wear them away.
       let newHVal, newPVal, newLVal;
       // console.log(`decaying ${decay * hoursAway * 0.5} from each category. ${hoursAway} hours away.`)
+
+      // This is a dumb way to do this, TODO: undumb this.
+
       if (prev.health > 0) {
         newHVal = prev.health - decay * hoursAway * 0.5;
       } else {
@@ -293,23 +314,23 @@ export default function Mata(props) {
         newPVal = prev.play;
       }
       if (prev.love > 0) {
-        // should decay based on last visit
         newLVal = prev.love - decay * hoursAway * 0.5;
       } else {
         newLVal = prev.love;
       }
-
       return { health: newHVal, love: newLVal, play: newPVal };
     });
+    // Set interval for the time passing function. TODO: make this a different hook.
     const intervalId = setInterval(() => {
       liveTimePassing();
     }, decayRate);
+
+    // Calculate whether or not Mata will be hiding on page load. 1 in 11 chance.
     let doesHeHide = new Array(40);
     doesHeHide.fill("none");
     doesHeHide.push("hideInItems", "hideL", "hideC", "hideR");
     let choice = Math.floor(Math.random() * (doesHeHide.length - 1));
     choice = doesHeHide[choice];
-    // choice = "hideC";
     document.getElementById("imageDiv").classList.add(choice);
     if (choice === "none") {
       setIsHiding(false);
@@ -329,7 +350,7 @@ export default function Mata(props) {
       </div>
       <div
         id="imageDiv"
-        // certainly should be its own function.
+        // Should be its own function.
         onClick={() => {
           const iD = document.getElementById("imageDiv");
           if (
@@ -338,17 +359,17 @@ export default function Mata(props) {
             iD.classList.contains("hideC") ||
             iD.classList.contains("hideR")
           ) {
-            // award thirty play points
+            // Award thirty play points, Mata loves them some hide-and-seek.
             playWithMata(30);
-            // not hiding anymore!
+            // Not hiding anymore!
             setIsHiding(false);
-            // add the transition animation, and then remove it in case he hides again
+            // Add the transition animation, and then remove it in case he hides again TODO: keep the transition 'cause I want him to hide randomly (not just on the occaisional page load)
             document.getElementById("imageDiv").classList =
-              "imageDivTransition";
+              "imageDivTransition"; // No more hide-y class.
             setTimeout(() => {
               document
                 .getElementById("imageDiv")
-                .classList.remove("imageDivTransition");
+                .classList.remove("imageDivTransition"); // No more transition (after the 1 second it takes to happen)
             }, 1000);
 
             giveRandomItem();
@@ -412,10 +433,16 @@ export default function Mata(props) {
         </button>
       </div>
       <div id="vitalBars">
-        {/* make it glow if you try to go over 100! And maybe make it its own module*/}
-        <div id="playBarOuter" class="barOuter"><div id="playBar" style={{height: vitals.play + '%'}}></div></div>
-        <div id="loveBarOuter" class="barOuter"><div id="loveBar" style={{height: vitals.love + '%'}}></div></div>
-        <div id="healthBarOuter" class="barOuter"><div id="healthBar" style={{height: vitals.health + '%'}}></div></div>
+        {/*TODO: make it glow if you try to go over 100! And make it its own darn module*/}
+        <div id="playBarOuter" class="barOuter">
+          <div id="playBar" style={{ height: vitals.play + "%" }}></div>
+        </div>
+        <div id="loveBarOuter" class="barOuter">
+          <div id="loveBar" style={{ height: vitals.love + "%" }}></div>
+        </div>
+        <div id="healthBarOuter" class="barOuter">
+          <div id="healthBar" style={{ height: vitals.health + "%" }}></div>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ import allItems from "./AllItems";
 export default function Items(props) {
   let inventory = props.inventory;
 
-  const [hoveredItem, setHoveredItem] = useState(allItems.lettuce);
+  const [hoveredItem, setHoveredItem] = useState(allItems.lettuce); // gotta have something here so the popup loads initially. Maybe add a non-item to allItems?
   const handleMouseOver = (e) => {
     document.getElementById("popUp").style.display = "block";
     setHoveredItem(allItems[e.target.id]);
@@ -16,7 +16,8 @@ export default function Items(props) {
   };
   
   return (
-    <div id="popUpRealm">
+    <div id="popUpRealm"> 
+    {/* this div is dumb, I have to see why I did this! TODO: revisit past self */}
       <div id="outerItemsBox">
         <h1>Items</h1>
         <div id="itemsBox">

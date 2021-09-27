@@ -185,9 +185,9 @@ body {
   animation: wiggle 10s linear infinite;
 }
 
-#thoughtCloudItem::before {  /* Playing with shape-outside to try and fill the cloud with text  */
-  content: "";              /*  Probably going away, likely won't even keep the text. But,     */
-  height: 100px;           /*   thanks Mozilla for the helper tool in Firefox!                */
+#thoughtCloudItem::before {  /* Playing with shape-outside to try and fill the cloud shape with text  */
+  content: "";              /*  Probably going away, likely won't even keep the text. But, thanks    */
+  height: 100px;           /*    Mozilla for the helper tool in Firefox!                            */
   width: 50%;
   float: left;
   shape-outside: circle(73.76% at -18px -38px);

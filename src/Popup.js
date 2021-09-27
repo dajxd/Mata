@@ -2,11 +2,11 @@ import React from "react";
 
 class Popup extends React.Component {
   componentDidMount() {
-    document.addEventListener("mousemove", (e) => {
+    document.addEventListener("mousemove", (event) => {
       const popUp = document.getElementById("popUp");
       if (popUp.style.display !== "none") {
-        popUp.style.left = e.pageX + "px";
-        popUp.style.top = e.pageY + "px";
+        popUp.style.left = event.pageX + "px";
+        popUp.style.top = event.pageY + "px";
       }
     });
   }
