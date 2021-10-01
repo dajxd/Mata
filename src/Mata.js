@@ -269,7 +269,7 @@ export default function Mata(props) {
           loop
           autoPlay
           playsInline
-          preload="true"
+          preload="true" // Not sure if this is doing anything.
         ></video>
         <video
           id="happyVid"
@@ -277,7 +277,7 @@ export default function Mata(props) {
           width="600"
           muted
           playsInline
-          preload="true"
+          preload="true" 
         ></video>
       </div>
       <span id="aliveTime">Time Alive: {props.timeAlive[0]}</span>

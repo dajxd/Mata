@@ -39,6 +39,7 @@ export default function ThoughtCloud(props) {
       ></video>
       <div id="thoughtCloudTextContainer">
         <div id="thoughtCloudItem">
+          {/* this text is so broken, it may be time to give up on shape-outside */}
           <span>{chosenPhrase}</span>
         </div>
       </div>
