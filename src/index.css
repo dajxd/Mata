@@ -109,8 +109,8 @@ body {
 }
 
 .vitalBarGlowEffect {
-  -webkit-box-shadow: 0px 0px 20px 11px #FFD12B; 
-  box-shadow: 0px 0px 20px 11px #FFD12B;
+  -webkit-box-shadow: 0px 0px 10px 11px #ffee00b2; 
+  box-shadow: 0px 0px 10px 11px #ffee00b2;
 }
 /* Item Usage Effect  */
 

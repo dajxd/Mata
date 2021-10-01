@@ -22,7 +22,7 @@ export default function Mata(props) {
         playWithMata(item);
         break;
       default:
-        alert("func returner broke");
+        alert("Function returner doesn't know what to send!");
         return null;
     }
   };

@@ -12,6 +12,7 @@
 
   - When you use an item during a video transition, we seem to get stuck with no visible videos.
     - Animation-in-progress variable?
+    - Why do I keep forgetting about this (rather important) one?
   - Maybe give a thought to balancing? Game play? Not really my strong suit.
 
   - At least one more video, for mega-sad and maybe for "hey thanks, but that wasn't what I needed"
@@ -25,3 +26,9 @@
   - Check out the Time Alive, something went weird just now. Said 3 days instead of like, 6 hours.
 
   - If you're gonna keep the text, at least make it sit well.
+
+  - Some of the icons are dumb and/or creepy. Especially coo. Replace or make your own darn icons.
+
+  - Credit for the background image!
+
+  - Color thoughtBubble text with the item type it's suggesting?
