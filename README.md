@@ -4,6 +4,8 @@
 
   - PropType it up.
 
+  - Fix hook dependencies
+
   - Give an indication that they're hiding and that you may have to resize the window.
 
   - Should have idle thoughts too that have nothing to do with needs. Happy thoughts, even. Not just the "babe" one.
@@ -32,3 +34,7 @@
   - Credit for the background image!
 
   - Color thoughtBubble text with the item type it's suggesting?
+
+  - Make the cookies not plain text, no cheating.
+
+  - Why aren't vital cookies working once published on Netlify? 

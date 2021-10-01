@@ -14,7 +14,7 @@ export const phrases = {
     "let's do something, c'mon!",
     "blah blah blah i just sit here on this screen all day and sometimes you cover me up with like, excel. as if i'm not in enough of a cell.",
     "i mean, i know we can't reeeaaally play but it makes me happy when you click that lil button. travel! anywhere i imagine!",
-    "you'd be surprised at how skillfu l i am with a ball. let me show you. this is not me begging to play. i'm cooler than that.",
+    "you'd be surprised at how skillful i am with a ball. let me show you. this is not me begging to play. i'm cooler than that.",
     "so like, i sit here a lot. can we do something fun?",
     "i KNOW you have plenty of actual friends but please let's do a fun thing while we're both here.",
   ],
@@ -30,6 +30,6 @@ export const phrases = {
   ],
 
   none: [
-      "i'm good, thanks babe!"
+      "i'm good, thanks kiddo!"
   ]
 };

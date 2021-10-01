@@ -46,7 +46,7 @@ function App() {
     });
     return tempArr;
   }
-  // Create inventory,activeInventory, startDate, and vitals from cookies
+  // Create inventory, activeInventory, startDate, and vitals from cookies
   const [activeInventory, setActiveInventory] = useState(
     createInventoryObjects(JSON.parse(Cookies.get("activeInventory")))
   );
@@ -197,13 +197,12 @@ function App() {
         newPVal = prev.play - decay - 1;
         if (newPVal > 110) {
           newPVal = 110;
-
         }
       } else {
         newPVal = prev.play;
       }
       if (prev.love > 0) {
-        // Should decay based on last visit?
+        // Should decay more based on last visit?
         newLVal = prev.love - decay;
         if (newLVal > 110) {
           newLVal = 110;

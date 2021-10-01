@@ -29,7 +29,6 @@ export default function Mata(props) {
 
   // Decide which idle video to use. I am sometimes ending up with both videos at 0 opacity. TODO: Make a ghost not transparent.
   const idleChange = (turnSad) => {
-    console.log("IDLECHANGE")
     const video = document.getElementById("idleVideo");
     video.style.opacity = 0;
     setTimeout(() => {

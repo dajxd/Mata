@@ -24,8 +24,7 @@ export default function ThoughtCloud(props) {
     } else if (!props.isHiding) {
       document.getElementById("cloudBox").style.opacity = 100;
     }
-  });
-
+  }, [props.isHiding]);
 
   return (
     <div id="cloudBox">

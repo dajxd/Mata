@@ -32,7 +32,7 @@ const allItems = {
       icon: <GiOakLeaf className="healthColor" />,
       type: "health",
       name: "kale",
-      verb: "Feed with kale",
+      phrase: "Feed with kale",
     },
     superfood: {
       value: 30,
