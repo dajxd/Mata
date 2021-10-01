@@ -3,7 +3,7 @@ import Mata from "./Mata";
 import Items from "./Items";
 import VitalMonitor from "./VitalMonitor";
 import allItems from "./AllItems";
-import Cookies from "js-cookie";
+import Cookies from "js-cookie"; // Turns out I didn't end up using react-cookie!
 
 function App() {
   const [timeAlive, setTimeAlive] = useState(false);
