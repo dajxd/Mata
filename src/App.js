@@ -135,10 +135,10 @@ function App() {
     // Oh hey, a diagnostic cookie timeout.
     setTimeout(() => {
       let inventoryCleaner = [...new Set(invNames)];
-      Cookies.set("inventory", JSON.stringify(inventoryCleaner)); // This is dirty. TODO: Figure out why the inventory was duplicating from cookies to being with!
+      Cookies.set("inventory", JSON.stringify(inventoryCleaner)); // This is dirty. TODO: Figure out why the inventory was duplicating from cookies to begin with!
     }, 100);
   }
-  // Calculate how long Mata has been kept happy and alive. (or dead!)
+  // Calculate how long Mata has been kept happy and alive. (or dead! but happy.)
   const getTimeDiff = (returnAliveTime) => {
     let dateDiff;
     if (returnAliveTime) {
