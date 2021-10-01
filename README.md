@@ -4,7 +4,7 @@
 
   - PropType it up.
 
-  - Fix hook dependencies
+  - Fix hook dependencies.
 
   - Give an indication that they're hiding and that you may have to resize the window.
 
