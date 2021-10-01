@@ -87,7 +87,7 @@ function App() {
     }, 100);
   }
 
-  // Remove an object from inventory (and cookies). TODO: do this cleaner with rest parameters.
+  // Remove an object from inventory (and cookies). TODO: do this cleaner with spread.
   function removeFromInventory(newItem) {
     let invNames = [];
     setInventory((prev) => {
